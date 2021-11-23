@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path:'',redirectTo:'decision',pathMatch:'full' },
-  {path:'decision',component:DecisionPopupComponent }
+  {path:'',redirectTo:'tasks',pathMatch:'full' },
+  {path:'decision',component:DecisionPopupComponent },
+  {path:'tasks',component:DecisionPopupComponent }
 ];
 
 @NgModule({
