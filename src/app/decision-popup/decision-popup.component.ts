@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TasksService } from './../tasks.service';
+import { Task } from './../interfaces/task';
 
 @Component({
   selector: 'app-decision-popup',
@@ -8,12 +9,18 @@ import { TasksService } from './../tasks.service';
 })
 export class DecisionPopupComponent implements OnInit {
   activeTab: string = 'tasks';
-  addedTasks:any[] = [];
+  addedTasks:Task[] = [];
 
-  constructor(private TasksService:TasksService) {}
+
+
+  constructor(private tasksService:TasksService) {}
 
   ngOnInit() {
-    this.addedTasks = this.TasksService.getTasks();
+    // this.addedTasks = this.TasksService.getTasks();
+    this.tasksService.tasksChanged.subscribe((value)=>{
+      this.addedTasks = value;
+    });
+
   }
 
 }

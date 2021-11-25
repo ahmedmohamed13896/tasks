@@ -5,14 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RangeDatePipe implements PipeTransform {
 
-
-  transform(value: any): any[] {
+  transform(value: any): Date[] {
+    console.log(value);
     if(typeof value == 'object'){
-      console.log(value);
-      return value ;
+      return value;
+    }else{
+      return value?.split(',')  || [];
     }
-    console.log(value?.split(','));
-    return value?.split(',') ;
   }
 
 }

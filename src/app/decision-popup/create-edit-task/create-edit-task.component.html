@@ -254,10 +254,14 @@
                           justify-content-end
                           align-items-center
                         ">
-                    <button type="button" class="btn btn-secondary" (click)="clearForm()">
+                    <button type="button" class="btn btn-secondary" *ngIf="!editButtonDisplayed" (click)="clearForm()">
                       Clear
                     </button>
-                    <button type="button" class="btn btn-primary text-white ms-3" (click)="addTask()" [disabled]="!addTaskForm.valid">
+                    <button type="button" class="btn btn-primary text-white ms-3" (click)="updateTask()" *ngIf="editButtonDisplayed" [disabled]="!addTaskForm.valid">
+                      Edit/Save
+                    </button>
+
+                    <button type="button" class="btn btn-primary text-white ms-3" (click)="addTask()" *ngIf="!editButtonDisplayed" [disabled]="!addTaskForm.valid">
                       Add Task
                     </button>
                   </div>

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { TasksService } from './../../../tasks.service';
+import { Task } from './../../../interfaces/task';
 
 
 @Component({
@@ -8,16 +10,41 @@ import { TasksService } from './../../../tasks.service';
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent implements OnInit {
-  @Input() task: any = {};
+  @Input() task: Task = {
+    id: '',
+    title: '',
+    periority: [],
+    due_date: [],
+    reminder_date: '',
+    assigne: [],
+    follow_up: [],
+    bussiness_unit: [],
+    department: [],
+    description: '',
+  };;
 
   tasks: any[] = [];
   arrowClass: string = 'fa-chevron-circle-down';
+  currentTask = {};
+
+  // use this for update Task
+  currentTaskSub = new Subscription();
+  editButtonDisplayed = false;
+
+  constructor(private tasksService:TasksService) { }
 
 
-  constructor(private TasksService:TasksService) { }
   ngOnInit(): void {
-    this.TasksService.tasksChanged.subscribe((value)=>{
+    this.tasksService.tasksChanged.subscribe((value)=>{
       this.tasks = value;
+    });
+
+    this.currentTaskSub =  this.tasksService.taskUpdated.subscribe((res)=>{
+      this.currentTask = res;
+    });
+
+    this.tasksService.editButtonUpdated.subscribe((res)=>{
+      this.editButtonDisplayed = res;
     });
   }
 
@@ -26,7 +53,18 @@ export class TaskComponent implements OnInit {
   }
 
   deleteTask($event:Event) {
-    this.TasksService.deleteTasks(this.task);
+    this.tasksService.deleteTask(this.task);
+    $event.stopPropagation();
+  }
+
+  stopPropagation(event:Event){
+    event.stopPropagation();
+  }
+
+  editTask($event:Event) {
+    this.tasksService.editButtonDisplayed = true;
+    this.tasksService.editTask(this.task);
+    this.tasksService.showEditButton();
     $event.stopPropagation();
   }
 
