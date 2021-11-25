@@ -4,14 +4,14 @@
     <div class="task_list py-2 " accordion-heading>
       <div class="row justify-content-between w-100 mx-auto">
         <div class="col-2 ">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-start">
             <i class="fas arrow" [ngClass]="arrowClass" (click)="toggleTask()"></i>
             <h5 class="title" containerClass="tootipe_container" [tooltip]="task.title">{{task.title}}</h5>
 
           </div>
         </div>
         <div class="col-3 ">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-start">
             <div class="field_text">
               Assinged To
             </div>
@@ -32,17 +32,17 @@
           </div>
         </div>
         <div class="col-5 ">
-          <div class="row d-flex align-items-center">
-            <div class="col-6 d-flex align-items-center flex-wrap">
+          <div class="row d-flex align-items-start">
+            <div class="col-6 d-flex align-items-start flex-wrap">
               <div class="field_text">
                 <i class="far fa-calendar-alt"></i>
                 <span class="d-inline-block ms-1">Due date</span>
               </div>
               <div class="date">
-                {{task.due_date | date:'dd/MM/YYYY'}}
+                {{(task.due_date | rangeDate)[0] | date:'dd/MM/YYYY' }} {{(task.due_date | rangeDate)[1] | date:'dd/MM/YYYY'}}
               </div>
             </div>
-            <div class="col-6 d-flex align-items-center flex-wrap">
+            <div class="col-6 d-flex align-items-start flex-wrap">
               <div class="field_text">
                 <i class="far fa-calendar-alt"></i>
                 <span class="d-inline-block ms-1">Reminder date</span>
@@ -54,13 +54,13 @@
           </div>
         </div>
         <div class="col-2 ">
-          <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-start justify-content-between">
             <div class="task_periority" [ngClass]="task.periority">
               {{task.periority}}
             </div>
 
             <div class="d-flex">
-              <i class="fas fa-times-circle text-secondary"></i>
+              <i (click)="deleteTask($event)" class="fas fa-times-circle text-secondary"></i>
               <i class="fas fa-pen text-secondary ms-2"></i>
             </div>
           </div>

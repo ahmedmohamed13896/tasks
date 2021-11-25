@@ -14,6 +14,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TasksListComponent } from './decision-popup/tasks-list/tasks-list.component';
 import { ApprevPipe } from './apprev.pipe';
 import { TaskComponent } from './decision-popup/tasks-list/task/task.component';
+import { CreateEditTaskComponent } from './decision-popup/create-edit-task/create-edit-task.component';
+import { RangeDatePipe } from './range-date.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { TaskComponent } from './decision-popup/tasks-list/task/task.component';
     DecisionPopupComponent,
     TasksListComponent,
     ApprevPipe,
-    TaskComponent
+    TaskComponent,
+    CreateEditTaskComponent,
+    RangeDatePipe
   ],
   imports: [
     BrowserModule,

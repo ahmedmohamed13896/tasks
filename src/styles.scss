@@ -40,6 +40,10 @@
   margin: 0 10px;
   text-align: center;
   user-select: none;
+  cursor: pointer;
+}
+.tooltip {
+  pointer-events: all !important;
 }
 // ngselect style
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.left {

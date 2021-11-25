@@ -1,0 +1,268 @@
+<accordion [isAnimated]="true">
+  <accordion-group [isOpen]="isOpened">
+    <h6 class="tab_title" (click)="toggleForm()" accordion-heading type="button">
+      <span>Create/Edit Task</span>
+      <span class="arrow" [ngClass]="arrow"></span>
+    </h6>
+    <form class="form_container" [formGroup]="addTaskForm">
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label for="title">Task title<span>*</span></label>
+            <input type="text" class="form-control" formControlName="title" required [class.error]="
+                            addTaskForm.controls['title'].errors &&
+                            addTaskForm.controls['title'].touched
+                          " name="title" placeholder="Task Name" id="title" />
+            <small class="text-danger" *ngIf="
+                            addTaskForm.controls['title'].errors &&
+                            addTaskForm.controls['title'].touched
+                          ">Required</small>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label for="periority">Periority<span>*</span></label>
+            <ng-select class="w-100" formControlName="periority" required [items]="task.periority" bindLabel="name" bindValue="name" [multiple]="false" name="periority" [class.error]="
+                            addTaskForm.controls['periority'].errors &&
+                            addTaskForm.controls['periority'].touched
+                          " placeholder="Periority">
+            </ng-select>
+            <small class="text-danger" *ngIf="
+                            addTaskForm.controls['periority'].errors &&
+                            addTaskForm.controls['periority'].touched
+                          ">Required</small>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label for="due_date">Due Date<span>*</span></label>
+            <div class="date_group">
+              <input type="text" autocomplete="off" placeholder="Select Date Range" name="due_date" class="form-control" bsDaterangepicker #dueDate="bsDaterangepicker" [bsValue]="" [bsConfig]="{
+                              dateInputFormat: 'DD-MM-YYYY',
+                              containerClass: 'theme-blue'
+                            }" formControlName="due_date" required [class.error]="
+                              addTaskForm.controls['due_date'].errors &&
+                              addTaskForm.controls['due_date'].touched
+                            " />
+              <i class="fas fa-calendar-alt" (click)="dueDate.toggle()" [attr.aria-expanded]="dueDate.isOpen"></i>
+            </div>
+            <small class="text-danger" *ngIf="
+                            addTaskForm.controls['due_date'].errors &&
+                            addTaskForm.controls['due_date'].touched
+                          ">Required</small>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label for="reminder_date">Reminder Date</label>
+            <div class="date_group">
+              <input type="text" autocomplete="off" placeholder="Select Date Range" name="reminder_date" class="form-control" #ReminderDate="bsDatepicker" bsDatepicker [bsValue]="" [bsConfig]="{
+                              dateInputFormat: 'DD-MM-YYYY',
+                              containerClass: 'theme-blue'
+                            }" formControlName="reminder_date" [class.error]="
+                              addTaskForm.controls['reminder_date'].errors &&
+                              addTaskForm.controls['reminder_date'].touched
+                            " />
+              <i class="fas fa-calendar-alt" (click)="ReminderDate.toggle()" [attr.aria-expanded]="ReminderDate.isOpen"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label for="assigne">Assigne<span>*</span></label>
+            <div class="d-flex align-items-start flex-nowrap w-100">
+              <ng-select class="custom_select" [closeOnSelect]="false" [items]="task.assigne" bindLabel="name" bindValue="name" [multiple]="true" name="assigne" placeholder="Assignee" formControlName="assigne" required [class.error]="
+                              addTaskForm.controls['assigne'].errors &&
+                              addTaskForm.controls['assigne'].touched
+                            ">
+                <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                  <div class="ng-value" *ngFor="
+                                  let item of items ? items.slice(0, 2) : []
+                                ">
+                    <span class="ng-value-label">
+                      {{ item.name | apprev: 2 }}</span>
+                    <span class="ng-value-icon left" (click)="clear(item)" aria-hidden="true">×</span>
+                  </div>
+                </ng-template>
+              </ng-select>
+              <div class="tooltip_icon" triggers="click" [tooltip]="assignePopTemplate" placement="auto" [class.disabled]="
+                              !addTaskForm.value.assigne?.length
+                            ">
+                {{
+                addTaskForm.value.assigne?.length <= 2 ? 0 : "+" + (addTaskForm.value.assigne?.length - 2) }} </div>
+                  <ng-template #assignePopTemplate>
+                    <div class="tooltip_content" *ngIf="addTaskForm.value.assigne?.length">
+                      <div *ngFor="let value of addTaskForm.value.assigne;
+                                  let i = index
+                                ">
+                        <div class="py-1 d-flex justify-content-start align-items-center" *ngIf="i >= 2">
+                          <span class="d-inline-block me-1">{{ value }}</span>
+                          <i class="fas fa-trash-alt deleteIcon text-danger d-inline-block ms-auto"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+              </div>
+
+              <small class="text-danger" *ngIf="
+                            addTaskForm.controls['assigne'].errors &&
+                            addTaskForm.controls['assigne'].touched
+                          ">Required</small>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="form-group">
+              <label for="follow_up">Follow up<span>*</span></label>
+              <div class="d-flex align-items-center">
+                <ng-select class="custom_select" [closeOnSelect]="false" [items]="task.follow_up" bindLabel="name" bindValue="name" [multiple]="true" name="follow_up" placeholder="Follow up" formControlName="follow_up" required [class.error]="
+                              addTaskForm.controls['follow_up'].errors &&
+                              addTaskForm.controls['follow_up'].touched
+                            ">
+                  <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                    <div class="ng-value" *ngFor="
+                                  let item of items ? items.slice(0, 2) : []
+                                ">
+                      <span class="ng-value-label">
+                        {{ item.name | apprev: 2 }}</span>
+                      <span class="ng-value-icon left" (click)="clear(item)" aria-hidden="true">×</span>
+                    </div>
+                  </ng-template>
+                </ng-select>
+
+                <div class="tooltip_icon" triggers="click" [tooltip]="follow_upPopTemplate" placement="auto" [class.disabled]="
+                              !addTaskForm.value.follow_up?.length
+                            ">
+                  {{
+                  addTaskForm.value.follow_up?.length <= 2 ? 0 : "+" + (addTaskForm.value.follow_up?.length - 2) }} </div>
+                    <ng-template #follow_upPopTemplate>
+                      <div class="tooltip_content" *ngIf="addTaskForm.value.follow_up?.length">
+                        <div *ngFor="
+                                  let value of addTaskForm.value.follow_up;
+                                  let i = index
+                                ">
+                          <div class="d-flex justify-content-start align-items-center" *ngIf="i >= 2">
+                            <span class="d-inline-block me-1">{{ value }}</span>
+                            <i class="fas fa-trash-alt deleteIcon text-danger d-inline-block ms-auto"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                </div>
+                <small class="text-danger" *ngIf="
+                            addTaskForm.controls['follow_up'].errors &&
+                            addTaskForm.controls['follow_up'].touched
+                          ">Required</small>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="form-group">
+                <label for="bussiness_unit">Bussiness Unit<span>*</span></label>
+                <div class="d-flex align-items-center">
+                  <ng-select class="custom_select" [closeOnSelect]="false" [items]="task.bussiness_unit" bindLabel="name" bindValue="name" [multiple]="true" name="bussiness_unit" placeholder="Bussiness Unit" formControlName="bussiness_unit" required [class.error]="
+                              addTaskForm.controls['bussiness_unit'].errors &&
+                              addTaskForm.controls['bussiness_unit'].touched
+                            ">
+                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                      <div class="ng-value" *ngFor="
+                                  let item of items ? items.slice(0, 2) : []
+                                ">
+                        <span class="ng-value-label">
+                          {{ item.name | apprev: 2 }}</span>
+                        <span class="ng-value-icon left" (click)="clear(item)" aria-hidden="true">×</span>
+                      </div>
+                    </ng-template>
+                  </ng-select>
+                  <div class="tooltip_icon" triggers="click" [tooltip]="bussiness_unitPopTemplate" placement="auto" [class.disabled]="
+                              !addTaskForm.value.bussiness_unit?.length
+                            ">
+                    {{
+                    addTaskForm.value.bussiness_unit?.length <= 2 ? 0 : "+" + (addTaskForm.value.bussiness_unit?.length - 2) }} </div>
+                      <ng-template #bussiness_unitPopTemplate>
+                        <div class="tooltip_content" *ngIf="addTaskForm.value.bussiness_unit?.length">
+                          <div *ngFor="
+                                  let value of addTaskForm.value.bussiness_unit;
+                                  let i = index
+                                ">
+                            <div class="d-flex justify-content-start align-items-center" *ngIf="i >= 2">
+                              <span class="d-inline-block me-1">{{ value }}</span>
+                              <i class="fas fa-trash-alt deleteIcon text-danger d-inline-block ms-auto"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                  </div>
+
+                  <small class="text-danger" *ngIf="
+                            addTaskForm.controls['bussiness_unit'].errors &&
+                            addTaskForm.controls['bussiness_unit'].touched
+                          ">Required</small>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="form-group">
+                  <label for="department">Department<span>*</span></label>
+                  <div class="d-flex align-items-center">
+                    <ng-select class="custom_select" [closeOnSelect]="false" [items]="task.department" bindLabel="name" bindValue="name" [multiple]="true" name="department" placeholder="Department" formControlName="department" required [class.error]="
+                              addTaskForm.controls['department'].errors &&
+                              addTaskForm.controls['department'].touched
+                            ">
+                      <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                        <div class="ng-value" *ngFor="
+                                  let item of items ? items.slice(0, 2) : []
+                                ">
+                          <span class="ng-value-label">
+                            {{ item.name | apprev: 2 }}</span>
+                          <span class="ng-value-icon left" (click)="clear(item)" aria-hidden="true">×</span>
+                        </div>
+                      </ng-template>
+                    </ng-select>
+                    <div class="tooltip_icon" triggers="click" [tooltip]="departmentPopTemplate" placement="auto" [class.disabled]="
+                              !addTaskForm.value.department?.length
+                            ">
+                      {{
+                      addTaskForm.value.department?.length <= 2 ? 0 : "+" + (addTaskForm.value.department?.length - 2) }} </div>
+                        <ng-template #departmentPopTemplate>
+                          <div class="tooltip_content" *ngIf="addTaskForm.value.department?.length">
+                            <div *ngFor="
+                                  let value of addTaskForm.value.department;
+                                  let i = index
+                                ">
+                              <div class="d-flex justify-content-start align-items-center" *ngIf="i >= 2">
+                                <span class="d-inline-block me-1">{{ value }}</span>
+                                <i class="fas fa-trash-alt deleteIcon text-danger d-inline-block ms-auto"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                    </div>
+                    <small class="text-danger" *ngIf="
+                            addTaskForm.controls['department'].errors &&
+                            addTaskForm.controls['department'].touched
+                          ">Required</small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea type="text" class="form-control" height="50" name="description" placeholder="description" id="description" formControlName="description"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-6 d-flex flex-column">
+                  <div class="
+                          mt-auto
+                          d-flex
+                          justify-content-end
+                          align-items-center
+                        ">
+                    <button type="button" class="btn btn-secondary" (click)="clearForm()">
+                      Clear
+                    </button>
+                    <button type="button" class="btn btn-primary text-white ms-3" (click)="addTask()" [disabled]="!addTaskForm.valid">
+                      Add Task
+                    </button>
+                  </div>
+                </div>
+              </div>
+    </form>
+  </accordion-group>
+</accordion>
