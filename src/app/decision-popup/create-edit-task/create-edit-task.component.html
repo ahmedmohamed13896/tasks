@@ -158,7 +158,11 @@
               <div class="form-group">
                 <label for="bussiness_unit">Bussiness Unit<span>*</span></label>
                 <div class="d-flex align-items-center">
-                  <ng-select class="custom_select" [(ngModel)]="selectedBussinessUnit" [closeOnSelect]="false" [items]="task.bussiness_unit" bindLabel="name" bindValue="name" [multiple]="true" name="bussiness_unit" placeholder="Bussiness Unit" formControlName="bussiness_unit" required [class.error]="
+                  <ng-select class="custom_select" [(ngModel)]="selectedBussinessUnit"
+                  [closeOnSelect]="false"
+                  [items]="task.bussiness_unit" bindLabel="name"
+                   bindValue="name" [multiple]="true" name="bussiness_unit"
+                   placeholder="Bussiness Unit" formControlName="bussiness_unit" required [class.error]="
                               addTaskForm.controls['bussiness_unit'].errors &&
                               addTaskForm.controls['bussiness_unit'].touched
                             ">
