@@ -1,0 +1,87 @@
+.arrow{
+  margin-right: 14px;
+  margin-left: 0;
+  color: #5fa1fc;
+  font-size: 22px;
+  pointer-events: initial;
+}
+.task_list{
+    background-color: #FFF;
+
+  }
+  .title{
+    color: #475f7b;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .tootipe_container{
+    background-color: #fcfcfc;
+    color: #333;
+  }
+  ::ng-deep .card-body{
+    background-color: #FCFCFC;
+  }
+
+  .description{
+    font-size: 15px;
+    max-height: 80px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border:1px solid #ccc;
+    padding: 7px;
+    border-radius: 7px;
+  }
+
+  .field_text{
+    margin-right: 16px;
+    margin-left: 0;
+  }
+
+  .field_text,
+  .label{
+   color: #afb9c5;
+   font-size: 15px;
+  }
+
+  .list-group{
+    gap: 7px;
+    max-width: 250px;
+    list-style: none;
+    flex-direction: row;
+    li{
+      color: #FFF;
+      background-color: #5fa1fc;
+      padding: 2px 5px;
+      min-width: 30px;
+      text-align: center;
+      border-radius: 30px;
+      max-width: 60px;
+    }
+    .counter{
+      pointer-events: initial;
+      background-color: #e6e6e6;
+      color: #475f7b;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+  .task_periority{
+    border-radius: 14px;
+    padding: 2px 8px;
+    border:1px solid transparent;
+    &.high{
+      color: red;
+      border-color:red;
+    }
+    &.medium{
+      color: #4e9be2;
+      border-color:#4e9be2;
+    }
+    &.low{
+      color: green;
+      border-color: green;
+    }
+  }

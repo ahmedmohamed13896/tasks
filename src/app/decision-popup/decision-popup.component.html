@@ -1,0 +1,64 @@
+<!-- Button trigger modal -->
+<div class="d-flex justify-content-center py-5">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#decisionModal">
+    Show Decision and Tasks
+  </button>
+</div>
+
+<div class="modal fade decisionModal" id="decisionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Edit - Decision Example
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body px-2 py-1 d-flex flex-column flex-grow-1">
+        <!-- tab-links -->
+        <div class="tab-links d-flex">
+          <h5 class="tab-link p-2" [class.active]="activeTab == 'decision'" (click)="activeTab = 'decision'">
+            Decision
+          </h5>
+          <h5 class="tab-link p-2" [class.active]="activeTab == 'tasks'" (click)="activeTab = 'tasks'">
+            Tasks
+          </h5>
+        </div>
+
+        <!-- tabs -->
+        <div class="tabs d-flex flex-column flex-grow-1">
+          <div class="tab p-2" *ngIf="activeTab === 'decision'">
+            <h5>Decision tab her</h5>
+          </div>
+          <div class="tab py-2 d-flex flex-column flex-grow-1" *ngIf="activeTab === 'tasks'">
+            <!-- create/edit Task form -->
+            <app-create-edit-task></app-create-edit-task>
+
+            <!-- no tasks -->
+            <div class="
+                no-task
+                p-3
+                d-flex
+                flex-column flex-grow-1
+                justify-content-center
+                align-items-center
+                mt-2
+              " *ngIf="!addedTasks?.length">
+              <i class="fas fa-info-circle mb-2"></i>
+              <h5 class="mb-0">No Tasks Added</h5>
+            </div>
+            <!-- Tasks List -->
+            <app-tasks-list *ngIf="addedTasks?.length">
+            </app-tasks-list>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary ms-3">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

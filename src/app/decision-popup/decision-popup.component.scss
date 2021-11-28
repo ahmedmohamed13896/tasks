@@ -1,0 +1,43 @@
+.decisionModal{
+  .modal-fullscreen{
+    max-width: 90%;
+    margin: auto;
+    max-height: 90%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+.tab-links{
+  border-bottom: 1px solid #CCC;
+  .tab-link{
+    color: #c4c4c4;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .tab-link.active{
+    color: #5390e3;
+    border-bottom: 3px solid #5390e3;
+  }
+}
+
+
+
+
+
+// no tasks
+.no-task{
+  background-color: #fcfcfc;
+  border: 1px solid #cfcfcf;
+  border-radius: 7px;
+}
+.no-task i{
+  font-size: 30px;
+  color: #CCC;
+  display: block;
+}
+.no-task h5{
+  color: #CCC;
+}
+

@@ -1,0 +1,144 @@
+<accordion [isAnimated]="true" class="mb-2">
+  <accordion-group [isOpen]="false">
+    <!-- task Heading -->
+    <div class="task_list py-2 " accordion-heading>
+      <div class="row justify-content-between w-100 mx-auto">
+        <div class="col-2 ">
+          <div class="d-flex align-items-start">
+            <i class="fas arrow" [ngClass]="arrowClass" (click)="toggleTask()"></i>
+            <h5 class="title" containerClass="tootipe_container" [outsideClick]="true" [popover]="task.title">{{task.title}}</h5>
+
+          </div>
+        </div>
+        <div class="col-3 ">
+          <div class="d-flex align-items-start">
+            <div class="field_text">
+              Assinged To
+            </div>
+            <ul class="list-group d-flex">
+              <ng-container *ngFor="let assignee of task.assigne; let i=index">
+                <li *ngIf="i < 2" >{{assignee | apprev:2}}</li>
+                <li class="counter" triggers="click" (click)="stopPropagation($event)" [outsideClick]="true" [popover]="assigneTooltip" placement="auto" *ngIf="task.assigne.length && i == 2">+{{task.assigne.length -2}}</li>
+                <ng-template #assigneTooltip>
+                  <div class="tooltip_content">
+                    <div *ngFor="let assignee of task.assigne; let j=index">
+                      <div  class="mb-2" *ngIf="j >= 2 || !assignee">{{assignee}}</div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-container>
+
+            </ul>
+          </div>
+        </div>
+        <div class="col-5 ">
+          <div class="row d-flex align-items-start">
+            <div class="col-6 d-flex align-items-start flex-wrap">
+              <div class="field_text">
+                <i class="far fa-calendar-alt"></i>
+                <span class="d-inline-block ms-1">Due date</span>
+              </div>
+              <div class="date">
+                {{(task?.due_date | rangeDate)[0] | date:'dd/MM/YYYY' }} - {{(task?.due_date | rangeDate)[1] | date:'dd/MM/YYYY'}}
+              </div>
+            </div>
+            <div class="col-6 d-flex align-items-start flex-wrap" *ngIf="task.reminder_date.length">
+              <div class="field_text">
+                <i class="far fa-calendar-alt"></i>
+                <span class="d-inline-block ms-1">Reminder date</span>
+              </div>
+              <div class="date">
+                {{task.reminder_date | date:'dd/MM/YYYY'}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-2 ">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="task_periority" [ngClass]="task.periority">
+              {{task.periority}}
+            </div>
+
+            <div class="d-flex">
+              <i (click)="deleteTask($event)" class="fas fa-times-circle text-secondary"></i>
+              <i (click)="editTask($event)" class="fas fa-pen text-secondary ms-2"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- task details -->
+    <div class="row details">
+      <div class="col-3" *ngIf="task.description?.length">
+        <p class="label mb-2">
+          Description
+        </p>
+        <div class="description">
+          {{task.description}}
+        </div>
+      </div>
+      <div class="col-3">
+        <p class="label mb-2">
+          Bussiness Unit
+        </p>
+        <ul class="list-group d-flex">
+
+
+          <ng-container *ngFor="let bussiness_unit of task.bussiness_unit; let i=index">
+            <li *ngIf="i < 2">{{bussiness_unit | apprev:2}}</li>
+            <li class="counter" triggers="click" (click)="stopPropagation($event)" [outsideClick]="true" [popover]="bussiness_unitTooltip" placement="auto" *ngIf="task.bussiness_unit.length && i == 2">+{{task.bussiness_unit.length -2}}</li>
+            <ng-template #bussiness_unitTooltip>
+              <div class="tooltip_content">
+                <div *ngFor="let bussiness_unit of task.bussiness_unit; let j=index">
+                  <div *ngIf="j >= 2">{{bussiness_unit}}</div>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+
+        </ul>
+      </div>
+      <div class="col-3">
+        <p class="label mb-2">
+          Department
+        </p>
+        <ul class="list-group d-flex">
+
+
+          <ng-container *ngFor="let department of task.department; let i=index">
+            <li *ngIf="i < 2">{{department | apprev:2}}</li>
+            <li class="counter" triggers="click" (click)="stopPropagation($event)" [outsideClick]="true" [popover]="departmentTooltip" placement="auto" *ngIf="task.department.length && i == 2">+{{task.department.length -2}}</li>
+            <ng-template #departmentTooltip>
+              <div class="tooltip_content">
+                <div *ngFor="let department of task.department; let j=index">
+                  <div *ngIf="j >= 2">{{department}}</div>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="col-3">
+        <p class="label mb-2">
+          Follow up
+        </p>
+        <ul class="list-group d-flex">
+
+
+          <ng-container *ngFor="let follow_up of task.follow_up; let i=index">
+            <li *ngIf="i < 2">{{follow_up | apprev:2}}</li>
+            <li class="counter" triggers="click" (click)="stopPropagation($event)" [outsideClick]="true" [popover]="follow_upTooltip" placement="auto" *ngIf="task.follow_up.length && i == 2 ">+{{task.follow_up.length -2}}</li>
+            <ng-template #follow_upTooltip>
+              <div class="tooltip_content">
+                <div *ngFor="let follow_up of task.follow_up; let j=index">
+                  <div *ngIf="j >= 2">{{follow_up}}</div>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+
+        </ul>
+      </div>
+    </div>
+  </accordion-group>
+</accordion>
